@@ -1,4 +1,4 @@
-# Copyright © 2014-2021 Xorg
+# Copyright © 2014-2023 The Tumultuous Unicorn Of Darkness
 # This file is distributed under the same license as the CPU-X package.
 # Brsn <bkzspam@outlook.com>, 2019.
 # Mesut Akcan <makcan@gmail.com>, 2019.
@@ -8,19 +8,21 @@
 # Ali A. <thisisanaltacc@protonmail.com>, 2019.
 # mahmut özcan <mahmutozcan65@yahoo.com>, 2019, 2020.
 # Burak <burakidilmek@gmail.com>, 2019.
-# Sabri Ünal <libreajans@gmail.com>, 2020, 2021.
+# Sabri Ünal <libreajans@gmail.com>, 2020, 2021, 2023.
 # Çalgan Aygün <calganaygun@hacettepe.edu.tr>, 2020.
 # Adnan1091 <adnan.utku@ogr.dpu.edu.tr>, 2020.
 # Yaşar Çiv <yasarciv@protonmail.com>, 2020.
 # Anonymous <noreply@weblate.org>, 2020.
-# Oğuz Ersen <oguzersen@protonmail.com>, 2020, 2021.
+# Oğuz Ersen <oguzersen@protonmail.com>, 2020, 2021, 2022.
+# Oğuz Ersen <oguz@ersen.moe>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: CPU-X\n"
-"Report-Msgid-Bugs-To: https://github.com/X0rg/CPU-X/issues\n"
-"POT-Creation-Date: 2021-04-11 16:40+0000\n"
-"PO-Revision-Date: 2021-04-11 22:47+0000\n"
-"Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
+"Report-Msgid-Bugs-To: https://github.com/TheTumultuousUnicornOfDarkness/"
+"CPU-X/issues\n"
+"POT-Creation-Date: 2023-10-08 10:46+0000\n"
+"PO-Revision-Date: 2023-10-09 11:48+0000\n"
+"Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/cpu-x/"
 "translations/tr/>\n"
 "Language: tr\n"
@@ -28,13 +30,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.6-dev\n"
+"X-Generator: Weblate 5.1-dev\n"
 
-#: core.c:224
+#: core.cpp:135
 msgid "Finding CPU technology"
 msgstr "İşlemci teknolojisi bulunuyor"
 
-#: core.c:243
+#: core.cpp:161
 #, c-format
 msgid ""
 "Your CPU is not present in the database ==> %s, model: %i, ext. model: %i, "
@@ -43,138 +45,207 @@ msgstr ""
 "Veri tabanında CPU'nuz yok ==> %s, model: %i, genişletilmiş model: %i, "
 "genişletilmiş aile: %i"
 
-#: core.c:255
-#, c-format
-msgid "%d x %d %s, %d-way"
-msgstr "%d x %d %s, %d-yol"
+#: core.cpp:189 data.cpp:150 data.cpp:342
+msgid "unknown"
+msgstr "bilinmeyen"
 
-#: core.c:256
-#, c-format
-msgid "%d %s, %d-way"
-msgstr "%d %s, %d-yol"
-
-#: core.c:257
-#, c-format
-msgid "%s associative, %d-%s line size"
-msgstr "%s ilişkilendirilebilir, %d-%s satır boyutu"
-
-#: core.c:262
+#: core.cpp:230
 msgid "Calling libcpuid for retrieving static data"
 msgstr "Statik veri almak için libcpuid çağrılıyor"
 
-#: core.c:274
+#: core.cpp:245
 #, c-format
 msgid "failed to call libcpuid (%s)"
 msgstr "libcpuid çağrılamadı (%s)"
 
-#: core.c:433
+#: core.cpp:340
 msgid "Calling libcpuid for retrieving dynamic data"
 msgstr "Dinamik veri almak için libcpuid çağrılıyor"
 
-#: core.c:446
+#: core.cpp:353
 msgid "Calling libcpuid for retrieving CPU MSR static values"
 msgstr "CPU MSR statik değerlerini almak için libcpuid çağrılıyor"
 
-#: core.c:471
+#: core.cpp:380
 msgid "Calling libcpuid for retrieving CPU MSR dynamic values"
 msgstr "CPU MSR dinamik değerlerini almak için libcpuid çağrılıyor"
 
-#: core.c:494
-msgid "Calculating CPU multipliers"
-msgstr "CPU çarpanları hesaplanıyor"
-
-#: core.c:527
+#: core.cpp:412
 msgid "Calling dmidecode"
 msgstr "dmidecode çağrılıyor"
 
-#: core.c:560
+#: core.cpp:454 core.cpp:473
+#, c-format
+msgid "%s (configured)"
+msgstr "%s (yapılandırıldı)"
+
+#: core.cpp:461 core.cpp:480
+#, c-format
+msgid "%s (max)"
+msgstr "%s (azami)"
+
+#: core.cpp:466
+#, c-format
+msgid "%s (min)"
+msgstr "%s (asgari)"
+
+#: core.cpp:496
 msgid "Calculating CPU usage"
 msgstr "CPU kullanımı hesaplanıyor"
 
-#: core.c:611
+#: core.cpp:546
 msgid "Calling bandwidth"
 msgstr "Bant genişliği çağrılıyor"
 
-#: core.c:692
+#: core.cpp:613
+#, c-format
+msgid ""
+"pci_access is not properly initialized: it is a common issue when %s was "
+"built with a lower libpci version.\n"
+"Check that libpci %s library is present on your system. Otherwise, please "
+"rebuild %s."
+msgstr ""
+"pci_access düzgün başlatılmadı: bu, %s daha düşük bir libpci sürümüyle "
+"derlendiğinde görülen yaygın bir sorundur.\n"
+"Sisteminizde libpci %s kütüphanesinin bulunup bulunmadığına bakın. Aksi "
+"takdirde, lütfen %s'i yeniden derleyin."
+
+#: core.cpp:657
 #, c-format
 msgid "No kernel driver in use for graphic card at path %s"
 msgstr "%s yolundaki grafik kartı için kullanılan çekirdek sürücüsü yok"
 
-#: core.c:723
+#: core.cpp:693
 #, c-format
 msgid "Your GPU kernel driver is unknown: %s"
 msgstr "GPU çekirdek sürücünüz bilinmiyor: %s"
 
-#: core.c:796
+#: core.cpp:771
 #, c-format
 msgid "Your GPU user mode driver is unknown: %s"
 msgstr "GPU kullanıcı modu sürücünüz bilinmiyor: %s"
 
-#: core.c:800
+#: core.cpp:775
 #, c-format
 msgid "failed to call GLFW (%i): %s"
 msgstr "GLFW çağrılamadı (%i): %s"
 
-#: core.c:829
+#: core.cpp:906
+msgid "Finding Vulkan API version"
+msgstr "Vulkan API sürümü bulunuyor"
+
+#: core.cpp:918
+#, c-format
+msgid "failed to call vkCreateInstance (%s)"
+msgstr "vkCreateInstance çağrılamadı (%s)"
+
+#: core.cpp:921
+#, c-format
+msgid "%s is not supported"
+msgstr "%s desteklenmiyor"
+
+#: core.cpp:929
+#, c-format
+msgid "failed to call vkEnumeratePhysicalDevices (%s)"
+msgstr "vkEnumeratePhysicalDevices çağrılamadı (%s)"
+
+#: core.cpp:936
+msgid "No available Vulkan devices"
+msgstr "Kullanılabilir Vulkan aygıtı yok"
+
+#: core.cpp:944
+#, c-format
+msgid "No available physical devices (%s)"
+msgstr "Kullanılabilir fiziksel aygıt yok (%s)"
+
+#: core.cpp:1007
+#, c-format
+msgid "Failed to create Vulkan for device %u (%s)"
+msgstr "Aygıt %u için Vulkan oluşturulamadı (%s)"
+
+#: core.cpp:1011
+#, c-format
+msgid "%s is not supported for device %u, use only deviceID for matching"
+msgstr ""
+"%s, aygıt %u için desteklenmiyor, eşleştirme için yalnızca aygıt kimliğini "
+"kullanın"
+
+#: core.cpp:1043 core.cpp:1356
+msgid "Enabled"
+msgstr "Etkinleştirildi"
+
+#: core.cpp:1043 core.cpp:1356
+msgid "Disabled"
+msgstr "Devre dışı"
+
+#: core.cpp:1080
+msgid "Finding OpenCL API version"
+msgstr "OpenCL API sürümü bulunuyor"
+
+#: core.cpp:1084
 #, c-format
 msgid "There is no platform with OpenCL support (%s)"
 msgstr "OpenCL desteğine sahip bir platform yok (%s)"
 
-#: core.c:838
+#: core.cpp:1094
 #, c-format
 msgid "failed to get all OpenCL platforms (%s)"
 msgstr "tüm OpenCL platformları alınamadı (%s)"
 
-#: core.c:848
+#: core.cpp:1107
 #, c-format
 msgid "failed to get name for platform %u (%s)"
 msgstr "%u. platformun adı alınamadı (%s)"
 
-#: core.c:855
+#: core.cpp:1115
 #, c-format
 msgid "failed to get version for platform %u (%s)"
 msgstr "%u .platform için sürüm alınamadı (%s)"
 
-#: core.c:862
+#: core.cpp:1123
 #, c-format
 msgid "failed to find number of OpenCL devices for platform '%s %s' (%s)"
 msgstr "'%s %s' platformu için OpenCL aygıtlarının sayısı bulunamadı (%s)"
 
-#: core.c:870
+#: core.cpp:1123
+msgid "0 device"
+msgstr "0 aygıt"
+
+#: core.cpp:1132
 #, c-format
 msgid "failed to get all of OpenCL devices for platform '%s %s' (%s)"
 msgstr "'%s %s' platformu için tüm OpenCL aygıtları alınamadı (%s)"
 
-#: core.c:884
+#: core.cpp:1152
 #, c-format
 msgid "failed to get name for device %u (%s)"
 msgstr "%u. aygıtın adı alınamadı (%s)"
 
-#: core.c:891
+#: core.cpp:1160
 #, c-format
 msgid "failed to get version for device %u (%s)"
 msgstr "%u. aygıt için sürüm alınamadı (%s)"
 
-#: core.c:902
+#: core.cpp:1182
 #, c-format
 msgid "OpenCL driver for '%s %s' does not support CL_DEVICE_TOPOLOGY_AMD (%s)"
 msgstr "'%s %s' için OpenCL sürücüsü CL_DEVICE_TOPOLOGY_AMD desteklemiyor (%s)"
 
-#: core.c:913
+#: core.cpp:1193
 #, c-format
 msgid ""
 "OpenCL driver for '%s %s' does not support CL_DEVICE_GFXIP_MAJOR_AMD (%s)"
 msgstr ""
 "'%s %s' için OpenCL sürücüsü CL_DEVICE_GFXIP_MAJOR_AMD desteklemiyor (%s)"
 
-#: core.c:925 core.c:935 core.c:960
+#: core.cpp:1201 core.cpp:1221 core.cpp:1254
 #, c-format
 msgid ""
 "OpenCL driver for '%s %s' does not support CL_DEVICE_MAX_COMPUTE_UNITS (%s)"
 msgstr ""
 "'%s %s' için OpenCL sürücüsü CL_DEVICE_MAX_COMPUTE_UNITS desteklemiyor (%s)"
 
-#: core.c:948
+#: core.cpp:1242
 #, c-format
 msgid ""
 "OpenCL driver for '%s %s' does not support CL_DEVICE_PCI_DOMAIN_ID_NV (%s), "
@@ -183,547 +254,352 @@ msgstr ""
 "'%s %s' için OpenCL sürücüsü CL_DEVICE_PCI_DOMAIN_ID_NV (%s), "
 "CL_DEVICE_PCI_BUS_ID_NV (%s) veya CL_DEVICE_PCI_SLOT_ID_NV (%s) desteklemiyor"
 
-#: core.c:968
+#: core.cpp:1265
 #, c-format
 msgid "OpenCL is not supported with your GPU vendor (0x%X)"
 msgstr "GPU markanız OpenCL'yi desteklenmiyor (0x%X)"
 
-#: core.c:997
+#: core.cpp:1287
 msgid "Finding devices"
 msgstr "Aygıtlar bulunuyor"
 
-#: core.c:1009
+#: core.cpp:1299
 #, c-format
 msgid "Skip devices search (wrong permissions on %s device)"
 msgstr "Aygıt aramayı atla (%s aygıtında yanlış izinler)"
 
-#: core.c:1038
+#: core.cpp:1342
 #, c-format
 msgid "Your GPU vendor is unknown: %s (0x%X)"
 msgstr "GPU satıcınız bilinmiyor: %s (0x%X)"
 
-#: core.c:1060
+#: core.cpp:1362
 msgid "failed to find chipset vendor and model"
 msgstr "yonga seti satıcısı ve model bulunamadı"
 
-#: core.c:1062
+#: core.cpp:1364
 msgid "failed to find graphic card vendor and model"
 msgstr "ekran kartı marka ve modeli bulunamadı"
 
-#: core.c:1139
+#: core.cpp:1472
 msgid "Retrieving GPU clocks"
 msgstr "GPU saatleri alınıyor"
 
-#: core.c:1173
+#: core.cpp:1485
 msgid "None"
 msgstr "Hiçbiri"
 
-#: core.c:1306
+#: core.cpp:1494
 #, c-format
-msgid "Driver for GPU %u doesn't report frequencies"
-msgstr "%u GPU sürücüsü frekansları bildirmiyor"
+msgid "DRM path for %s is unknown"
+msgstr "%s için DRM yolu bilinmiyor"
 
-#: core.c:1349
+#: core.cpp:1501
 #, c-format
-msgid "Current: PCIe Gen%1dx%d / Max: Gen%1dx%d"
-msgstr "Şu anki: PCIe Gen%1dx%d / En yüksek: Gen%1dx%d"
+msgid "Card number for %s is unknown"
+msgstr "%s için kart numarası bilinmiyor"
 
-#: core.c:1371
-msgid "failed to retrieve GPU clocks"
-msgstr "GPU saatleri alınamadı"
+#: core.cpp:1526
+#, c-format
+msgid "PCIe %s (current) / %s (max)"
+msgstr "PCIe %s (geçerli) / %s (azami)"
 
-#: core.c:1388
+#: core.cpp:1634
+#, c-format
+msgid "Driver for %s doesn't report frequencies"
+msgstr "%s sürücüsü frekansları bildirmiyor"
+
+#: core.cpp:1652
+#, c-format
+msgid "failed to retrieve all monitoring data for %s"
+msgstr "%s için tüm izmele verileri alınamadı"
+
+#: core.cpp:1673
 msgid "Identifying running system"
 msgstr "İşletim sistemi tanımlanıyor"
 
-#: core.c:1391
+#: core.cpp:1676
 msgid "failed to identify running system"
 msgstr "işletim sistemi tanımlanamadı"
 
-#: core.c:1432
+#: core.cpp:1728 core.cpp:1757
 msgid "Calling libprocps"
 msgstr "libprocps çağrılıyor"
 
-#: core.c:1458
+#: core.cpp:1731
+msgid "unable to get system uptime"
+msgstr "sistem çalışma süresi alınamıyor"
+
+#: core.cpp:1737
+msgid "unable to create meminfo structure"
+msgstr "meminfo yapısı oluşturulamıyor"
+
+#: core.cpp:1783
 msgid "Calling libstatgrab"
 msgstr "libstatgrab çağrılıyor"
 
-#: core.c:1493
+#: core.cpp:1831
 #, c-format
 msgid "%i days, %i hours, %i minutes, %i seconds"
 msgstr "%i gün, %i saat, %i dakika, %i saniye"
 
-#: core.c:1549
+#: core.cpp:1894
 msgid "Updating benchmark status"
 msgstr "Karşılaştırma durumu güncelleniyor"
 
-#: core.c:1550 tui_ncurses.c:822
-#, c-format
-msgid "%u mins"
-msgstr "%u dakika"
-
-#: core.c:1552 core.c:1553
-msgid "Inactive"
-msgstr "Etkin değil"
-
-#: core.c:1557 core.c:1558
-msgid "Not started"
-msgstr "Başlatılmadı"
-
-#: core.c:1563
+#: core.cpp:1897
 msgid "Active"
 msgstr "Etkin"
 
-#: core.c:1568
+#: core.cpp:1900
 #, c-format
 msgid "(%u hours left)"
 msgstr "(%u saat kaldı)"
 
-#: core.c:1570
+#: core.cpp:1902
 #, c-format
 msgid "(%u minutes left)"
 msgstr "(%u dakika kaldı)"
 
-#: core.c:1572
+#: core.cpp:1904
 #, c-format
 msgid "(%u seconds left)"
 msgstr "(%u saniye kaldı)"
 
-#: core.c:1577
+#: core.cpp:1908 core.cpp:1963 core.cpp:1964
+msgid "Inactive"
+msgstr "Etkin değil"
+
+#: core.cpp:1911
 #, c-format
 msgid "in %u hours"
 msgstr "%u saat içinde"
 
-#: core.c:1579
+#: core.cpp:1913
 #, c-format
 msgid "in %u minutes"
 msgstr "%u dakika içinde"
 
-#: core.c:1581
+#: core.cpp:1915
 #, c-format
 msgid "in %u seconds"
 msgstr "%u saniye içinde"
 
-#: core.c:1597
-msgid "Starting benchmark"
-msgstr "Karşılaştırma başlatılıyor"
+#: core.cpp:1932
+#, c-format
+msgid "Starting benchmark with %u threads"
+msgstr "Karşılaştırma %u iş parçacığıyla başlatılıyor"
 
-#: core.c:1616
+#: core.cpp:1955
 msgid "an error occurred while starting benchmark"
 msgstr "karşılaştırma başlatılırken hata oluştu"
 
-#: core.c:1633
+#: core.cpp:1981
 msgid "Finding CPU package in fallback mode"
 msgstr "Yedek modda CPU paketi bulunuyor"
 
-#: core.c:1655
+#: core.cpp:2011
 #, c-format
 msgid "Your CPU socket is not present in the database ==> %s, codename: %s"
 msgstr "Veri tabanında CPU soketiniz yok ==> %s, kod adı: %s"
 
-#: core.c:1674
+#: core.cpp:2031
 msgid "Calculating CPU multipliers in fallback mode"
 msgstr "Yedek modda CPU çarpanları hesaplanıyor"
 
-#: core.c:1701
+#: core.cpp:2051
 msgid "Retrieving motherboard information in fallback mode"
 msgstr "Yedek modda anakart bilgisi alınıyor"
 
-#: core.c:1710
+#: core.cpp:2064
 msgid "failed to retrieve motherboard information (fallback mode)"
 msgstr "anakart bilgisi alınamadı (yedek modu)"
 
-#: core.c:1749
+#: core.cpp:2106
 msgid "Retrieving CPU temperature in fallback mode"
 msgstr "Yedek modda CPU sıcaklığı alınıyor"
 
-#: core.c:1794
+#: core.cpp:2152
 msgid "failed to retrieve CPU temperature (fallback mode)"
 msgstr "CPU sıcaklığı alınamadı (yedek mod)"
 
-#: core.c:1807
+#: core.cpp:2167
 msgid "Retrieving CPU voltage in fallback mode"
 msgstr "Yedek modda CPU gerilimi alınıyor"
 
-#: core.c:1820
+#: core.cpp:2179
 msgid "failed to retrieve CPU voltage (fallback mode)"
 msgstr "CPU gerilimi alınamadı (yedek mod)"
 
-#: core.c:1835
+#: core.cpp:2193
 msgid "Retrieving CPU frequency in fallback mode"
 msgstr "Yedek modda CPU frekansı alınıyor"
 
-#: core.c:1843
+#: core.cpp:2199
 msgid "failed to retrieve CPU frequency (fallback mode)"
 msgstr "CPU frekansı alınamadı (yedek mod)"
 
-#: daemon.c:254
+#: daemon_client.cpp:47
+msgid "Starting daemon in background…"
+msgstr "Art alan hizmeti arka planda başlatılıyor…"
+
+#: daemon_client.cpp:86
+msgid "pkexec: authorization could not be obtained (dialog dismissed)"
+msgstr "pkexec: yetkilendirme alınamadı (iletişim kutusu kapatıldı)"
+
+#: daemon_client.cpp:89
+msgid "pkexec: authorization could not be obtained (not authorized)"
+msgstr "pkexec: yetkilendirme alınamadı (yetkilendirilmedi)"
+
+#: daemon_client.cpp:92
+msgid "pkexec: command not found"
+msgstr "pkexec: komut bulunamadı"
+
+#: daemon_client.cpp:95
+msgid "pkexec: unexpected error code"
+msgstr "pkexec: beklenmedik hata kodu"
+
+#: daemon_client.cpp:125
+msgid "Connecting to daemon…"
+msgstr "Art alan hizmetine bağlanılıyor…"
+
+#: daemon_server.cpp:261
 #, c-format
 msgid "request_handler: case %i not handled"
 msgstr "request_handler: %i durumu işlemedi"
 
-#: gui_gtk.c:62
-msgid "Starting GTK GUI…"
-msgstr "GTK GUI başlatılıyor…"
-
-#: gui_gtk.c:70
-msgid "failed to import UI in GtkBuilder"
-msgstr "GtkBuilder'da kullanıcı arayüzü içe aktarılamadı"
-
-#: gui_gtk.c:544
-msgid "Connected to daemon"
-msgstr "Arka plan programına bağlandı"
-
-#: gui_gtk.c:546
-msgid "No polkit authentication agent found"
-msgstr "Hiçbir polkit kimlik doğrulama aracısı bulunamadı"
-
-#: gui_gtk.c:550
-msgid "Ask password to start daemon in background"
-msgstr "Arka plan programı başlatmak için parola sor"
-
-#: gui_gtk.c:556
-msgid "Start daemon"
-msgstr "Arka plan programını başlat"
-
-#: gui_gtk.c:565 gui_gtk.c:650 tui_ncurses.c:550
-#, c-format
-msgid "Core #%i"
-msgstr "Çekirdek #%i"
-
-#: gui_gtk.c:647
-#, c-format
-msgid "%s"
-msgstr "%s"
-
-#: main.c:56
-msgid "Setting label names"
-msgstr "Etiket adları ayarlanıyor"
-
-#: main.c:58
+#: data.cpp:124 cpu-x-gtk-3.12.ui:1370
 msgid "CPU"
 msgstr "CPU"
 
-#: main.c:59
+#: data.cpp:187
+msgid "P-core"
+msgstr "P-çekirdek"
+
+#: data.cpp:188
+msgid "E-core"
+msgstr "E-çekirdek"
+
+#: data.cpp:189 data.cpp:192
+msgid "Core"
+msgstr "Çekirdek"
+
+#: data.cpp:208 cpu-x-gtk-3.12.ui:746
 msgid "Processor"
 msgstr "İşlemci"
 
-#: main.c:60 main.c:115 main.c:148
-msgid "Vendor"
-msgstr "Satıcı"
-
-#: main.c:61
-msgid "Code Name"
-msgstr "Kod Adı"
-
-#: main.c:62
-msgid "Package"
-msgstr "Paket"
-
-#: main.c:63
-msgid "Technology"
-msgstr "Teknoloji"
-
-#: main.c:64
-msgid "Voltage"
-msgstr "Gerilim"
-
-#: main.c:65
-msgid "Specification"
-msgstr "Tanımlama"
-
-#: main.c:66
-msgid "Family"
-msgstr "Aile"
-
-#: main.c:67
-msgid "Ext. Family"
-msgstr "Genişletilmiş Aile"
-
-#: main.c:68 main.c:105 main.c:116 main.c:151
-msgid "Model"
-msgstr "Model"
-
-#: main.c:69
-msgid "Ext. Model"
-msgstr "Genişletilmiş Model"
-
-#: main.c:70
-msgid "Temp."
-msgstr "Sıcaklık"
-
-#: main.c:71
-msgid "Stepping"
-msgstr "Basamak Seviyesi"
-
-#: main.c:72
-msgid "Instructions"
-msgstr "Talimatlar"
-
-#: main.c:74
-msgid "Clocks"
-msgstr "Saatler"
-
-#: main.c:75
-msgid "Core Speed"
-msgstr "Çekirdek Hızı"
-
-#: main.c:76
-msgid "Multiplier"
-msgstr "Katsayı"
-
-#: main.c:77
-msgid "Bus Speed"
-msgstr "Veri Yolu Hızı"
-
-#: main.c:78 main.c:156
-msgid "Usage"
-msgstr "Kullanım"
-
-#: main.c:80
-msgid "Cache"
-msgstr "Önbellek"
-
-#: main.c:81
-msgid "L1 Data"
-msgstr "L1 Verileri"
-
-#: main.c:82
-msgid "L1 Inst."
-msgstr "L1 Talimat."
-
-#: main.c:83
-msgid "Level 2"
-msgstr "Seviye 2"
-
-#: main.c:84
-msgid "Level 3"
-msgstr "Seviye 3"
-
-#: main.c:86
-msgid "Socket(s)"
-msgstr "Soket(ler)"
-
-#: main.c:87
-msgid "Core(s)"
-msgstr "Çekirdek(ler)"
-
-#: main.c:88
-msgid "Thread(s)"
-msgstr "İş Parçacık(lar)ı"
-
-#: main.c:91
+#: data.cpp:240 data.cpp:329 cpu-x-gtk-3.12.ui:1968
 msgid "Caches"
 msgstr "Önbellek"
 
-#: main.c:95
+#: data.cpp:247
 #, c-format
-msgid "L%i Cache"
-msgstr "L%i Önbelleği"
+msgid "%2d x %4d %s, %2d-way"
+msgstr "%2d x %4d %s, %2d-yol"
 
-#: main.c:96
-msgid "Size"
-msgstr "Boyut"
+#: data.cpp:249
+#, c-format
+msgid "%d %s, %d-way"
+msgstr "%d %s, %d-yol"
 
-#: main.c:97
-msgid "Speed"
-msgstr "Hız"
+#: data.cpp:263
+msgid "Count"
+msgstr "Say"
 
-#: main.c:99
+#: data.cpp:276 cpu-x-gtk-3.12.ui:968
+msgid "Clocks"
+msgstr "Saatler"
+
+#: data.cpp:379 data.cpp:383
+#, c-format
+msgid "L%u Cache"
+msgstr "L%u Önbelleği"
+
+#: data.cpp:385
+#, c-format
+msgid "%s associative, %d-%s line size"
+msgstr "%s ilişkilendirilebilir, %d-%s satır boyutu"
+
+#: data.cpp:398
 msgid "Test"
 msgstr "Test"
 
-#: main.c:102 main.c:103
+#: data.cpp:409 data.cpp:423 cpu-x-gtk-3.12.ui:2146 cpu-x-gtk-3.12.ui:2517
 msgid "Motherboard"
 msgstr "Anakart"
 
-#: main.c:104
-msgid "Manufacturer"
-msgstr "Üretici"
-
-#: main.c:106
-msgid "Revision"
-msgstr "Düzeltme"
-
-#: main.c:108
+#: data.cpp:437 cpu-x-gtk-3.12.ui:2367
 msgid "BIOS"
 msgstr "BIOS"
 
-#: main.c:109
-msgid "Brand"
-msgstr "Marka"
-
-#: main.c:110
-msgid "Version"
-msgstr "Sürüm"
-
-#: main.c:111
-msgid "Date"
-msgstr "Tarih"
-
-#: main.c:112
-msgid "ROM Size"
-msgstr "ROM Boyutu"
-
-#: main.c:114
+#: data.cpp:452 cpu-x-gtk-3.12.ui:2498
 msgid "Chipset"
 msgstr "Yonga seti"
 
-#: main.c:119 main.c:135
+#: data.cpp:467 data.cpp:569 cpu-x-gtk-3.12.ui:3156 cpu-x-gtk-3.12.ui:3761
 msgid "Memory"
 msgstr "Bellek"
 
-#: main.c:122
+#: data.cpp:483
 #, c-format
-msgid "Bank %i"
-msgstr "%i Bankası"
+msgid "Stick %u"
+msgstr "Çubuk %u"
 
-#: main.c:123
-msgid "Reference"
-msgstr "Kaynak"
+#: data.cpp:487 cpu-x-gtk-3.12.ui:3134
+msgid "Sticks"
+msgstr "Çubuklar"
 
-#: main.c:127
+#: data.cpp:541 cpu-x-gtk-3.12.ui:3780
 msgid "System"
 msgstr "Sistem"
 
-#: main.c:128
+#: data.cpp:554 cpu-x-gtk-3.12.ui:3380
 msgid "Operating System"
 msgstr "İşletim Sistemi"
 
-#: main.c:129
-msgid "Kernel"
-msgstr "Çekirdek"
-
-#: main.c:130
-msgid "Distribution"
-msgstr "Dağıtım"
-
-#: main.c:131
-msgid "Hostname"
-msgstr "Ana Makine Adı"
-
-#: main.c:132
-msgid "Uptime"
-msgstr "Çalışma Zamanı"
-
-#: main.c:133
-msgid "Compiler"
-msgstr "Derleyici"
-
-#: main.c:136
-msgid "Used"
-msgstr "Kullanılmış"
-
-#: main.c:137
-msgid "Buffers"
-msgstr "Arabellek"
-
-#: main.c:138
-msgid "Cached"
-msgstr "Önbelleğe alınmış"
-
-#: main.c:139
-msgid "Free"
-msgstr "Boş"
-
-#: main.c:140
-msgid "Swap"
-msgstr "Takas"
-
-#: main.c:143
+#: data.cpp:587 cpu-x-gtk-3.12.ui:4960
 msgid "Graphics"
 msgstr "Grafikler"
 
-#: main.c:147
+#: data.cpp:621
 #, c-format
-msgid "Card %i"
-msgstr "Kart %i"
+msgid "Card %u"
+msgstr "Kart %u"
 
-#: main.c:149
-msgid "Driver"
-msgstr "Sürücü"
-
-#: main.c:150
-msgid "UMD Version"
-msgstr "UMD Sürümü"
-
-#: main.c:152
-msgid "Compute Unit"
-msgstr "İşlem Birimi"
-
-#: main.c:153
-msgid "DeviceID"
-msgstr "Aygıt Kimliği"
-
-#: main.c:154
-msgid "Interface"
-msgstr "Arayüz"
-
-#: main.c:155
-msgid "Temperature"
-msgstr "Sıcaklık"
-
-#: main.c:157
-msgid "Core Voltage"
-msgstr "Çekirdek Gerilimi"
-
-#: main.c:158
-msgid "Power Avg"
-msgstr "Güç Ortalaması"
-
-#: main.c:159
-msgid "GPU clock"
-msgstr "GPU saati"
-
-#: main.c:160
-msgid "Memory clock"
-msgstr "Bellek saati"
-
-#: main.c:161
-msgid "Memory Used"
-msgstr "Kullanılan Bellek"
-
-#: main.c:163
+#: data.cpp:625 cpu-x-gtk-3.12.ui:4938
 msgid "Cards"
 msgstr "Kartlar"
 
-#: main.c:166
+#: data.cpp:672 cpu-x-gtk-3.12.ui:5300
 msgid "Bench"
 msgstr "Karşılaştırma"
 
-#: main.c:167
+#: data.cpp:685
+msgid "Not started"
+msgstr "Başlatılmadı"
+
+#: data.cpp:688 cpu-x-gtk-3.12.ui:5070
 msgid "Prime numbers (slow)"
 msgstr "Asal sayılar (yavaş)"
 
-#: main.c:168
+#: data.cpp:692 cpu-x-gtk-3.12.ui:5178
 msgid "Prime numbers (fast)"
 msgstr "Asal sayılar (hızlı)"
 
-#: main.c:171
-msgid "Score"
-msgstr "Puan"
-
-#: main.c:172
-msgid "Run"
-msgstr "Çalıştır"
-
-#: main.c:175
+#: data.cpp:696 cpu-x-gtk-3.12.ui:5281
 msgid "Parameters"
 msgstr "Parametreler"
 
-#: main.c:176
-msgid "Duration"
-msgstr "Süre"
+#: data.cpp:721 data.cpp:727
+#, c-format
+msgid "%u mins"
+msgstr "%u dakika"
 
-#: main.c:177
-msgid "Threads"
-msgstr "İş Parçacıkları"
-
-#: main.c:180 main.c:185
+#: data.cpp:734 cpu-x-gtk-3.12.ui:5444 cpu-x-gtk-3.12.ui:5552
 msgid "About"
 msgstr "Hakkında"
 
-#: main.c:182
+#: data.cpp:739
 #, c-format
 msgid ""
 "%s is a Free software that gathers information\n"
@@ -732,199 +608,465 @@ msgstr ""
 "%s CPU, anakart ve daha fazlası hakkında bilgi\n"
 "toplayan özgür bir yazılımdır."
 
-#: main.c:186
+#: data.cpp:744
+msgid "About CPU-X"
+msgstr "CPU-X Hakkında"
+
+#: data.cpp:745
 #, c-format
 msgid "Version %s"
 msgstr "Sürüm %s"
 
-#: main.c:187
+#: data.cpp:746
 #, c-format
 msgid "Author: %s"
 msgstr "Yazar: %s"
 
-#: main.c:188
+#: data.cpp:747
 #, c-format
 msgid "Site: %s"
 msgstr "Site: %s"
 
-#: main.c:190
+#: data.cpp:751 cpu-x-gtk-3.12.ui:5533
 msgid "License"
 msgstr "Lisans"
 
-#: main.c:193
+#: data.cpp:753
 #, c-format
 msgid "This software is distributed under the terms of %s"
 msgstr "Bu yazılım %s koşulları altında dağıtılmıştır"
 
-#: main.c:195 main.c:444
+#: data.cpp:754 main.cpp:176
 msgid "This program comes with ABSOLUTELY NO WARRANTY"
 msgstr "Bu programın KESİNLİKLE HİÇBİR GARANTİSİ yoktur"
 
-#: main.c:266
-msgid "Dumping data…"
-msgstr "Veriler dökülüyor…"
+#: gui_gtk.cpp:61
+#, c-format
+msgid "Cannot find path for '%s' file"
+msgstr "'%s' dosyasının yolu bulunamadı"
 
-#: main.c:309
-msgid "Freeing memory"
-msgstr "Bellek boşaltılıyor"
+#: gui_gtk.cpp:400
+msgid "Start daemon"
+msgstr "Art alan hizmetini başlat"
 
-#: main.c:337
+#: gui_gtk.cpp:403
+msgid "Connected to daemon"
+msgstr "Art alan hizmetine bağlanıldı"
+
+#: gui_gtk.cpp:405
+msgid "No polkit authentication agent found"
+msgstr "Hiçbir polkit kimlik doğrulama aracısı bulunamadı"
+
+#: gui_gtk.cpp:409
+msgid "Ask password to start daemon in background"
+msgstr "Art alan hizmetini başlatmak için parola sor"
+
+#: gui_gtk.cpp:413
+msgid "Settings"
+msgstr "Ayarlar"
+
+#: gui_gtk.cpp:632
+msgid "BaseFamily"
+msgstr "TemelAile"
+
+#: gui_gtk.cpp:633
+msgid "CPU display (\"true\") family (computed as BaseFamily+ExtendedFamily)"
+msgstr ""
+"Görüntülenen (\"gerçek\") CPU ailesi (TemelAile+GenişletilmişAile olarak "
+"hesaplanır)"
+
+#: gui_gtk.cpp:634
+msgid "BaseModel"
+msgstr "TemelModel"
+
+#: gui_gtk.cpp:635
+msgid "CPU display (\"true\") model (computed as (ExtendedModel<<4)+BaseModel)"
+msgstr ""
+"Görüntülenen (\"gerçek\") CPU modeli ((GenişletilmişModel<<4)+TemelModel "
+"olarak hesaplanır)"
+
+#: gui_gtk.cpp:845
+msgid ""
+"Identify the physically-labeled socket or board position where the memory "
+"device is located"
+msgstr ""
+"Bellek aygıtının bulunduğu fiziksel olarak etiketlenmiş soketi ya da kart "
+"konumunu tanımla"
+
+#: gui_gtk.cpp:846
+msgid "Identify the physically labeled bank where the memory device is located"
+msgstr "Bellek aygıtının bulunduğu fiziksel olarak etiketlenmiş bakoyu tanımla"
+
+#: gui_gtk.cpp:1050
+msgid "User Mode Driver Version"
+msgstr "Kullanıcı Modu Sürücü Sürümü"
+
+#: gui_gtk.cpp:1064
+msgid "Vulkan Ray Tracing"
+msgstr "Vulkan Işın Yansıma (Ray Tracing)"
+
+#: gui_gtk.cpp:1258
+msgid "Starting GTK GUI…"
+msgstr "GTK GUI başlatılıyor…"
+
+#: gui_gtk.cpp:1270
+msgid "failed to import UI in GtkBuilder"
+msgstr "GtkBuilder'da kullanıcı arayüzü içe aktarılamadı"
+
+#: main.cpp:63
 msgid "Start graphical user interface (GUI) (default)"
 msgstr "Grafiksel kullanıcı arayüzünü (GUI) başlat (öntanımlı)"
 
-#: main.c:338
+#: main.cpp:64
 msgid "Start text-based user interface (TUI)"
 msgstr "Metin tabanlı kullanıcı arayüzünü (TUI) başlat"
 
-#: main.c:339
+#: main.cpp:65
 msgid "Dump all data on standard output and exit"
 msgstr "Tüm verileri standart çıktıya dök ve çık"
 
-#: main.c:340
+#: main.cpp:66
 msgid "Run embedded command dmidecode and exit"
 msgstr "Gömülü dmidecode komutunu çalıştır ve çık"
 
-#: main.c:341
+#: main.cpp:67
 msgid "Run embedded command bandwidth and exit"
 msgstr "Gömülü bandwidth komutunu çalıştır ve çık"
 
-#: main.c:342
+#: main.cpp:68
+msgid "Set temperature unit (c[elsius]|f[ahrenheit]|k[elvin]|r[ankine])"
+msgstr "Sıcaklık birimini ayarla (c[elsius]|f[ahrenheit]|k[elvin]|r[ankine])"
+
+#: main.cpp:69
 msgid "Set custom time between two refreshes (in seconds)"
 msgstr "İki yenileme arasında özel süre ayarla (saniye cinsinden)"
 
-#: main.c:343
+#: main.cpp:70
 msgid "Set default tab (integer)"
 msgstr "Öntanımlı sekmeyi ayarla (tam sayı)"
 
-#: main.c:344
+#: main.cpp:71
+msgid "Select core type to monitor (integer)"
+msgstr "İzlenecek çekirdek türünü seç (tam sayı)"
+
+#: main.cpp:72
 msgid "Select CPU core to monitor (integer)"
 msgstr "İzlenecek işlemci çekirdeğini seç (tam sayı)"
 
-#: main.c:345
+#: main.cpp:73
 msgid "Set custom bandwidth test for CPU caches speed (integer)"
 msgstr "İşlemci önbellek hızı için özel bant genişliği ayarla (tam sayı)"
 
-#: main.c:346
+#: main.cpp:74
+msgid "Select default memory stick (integer)"
+msgstr "Öntanımlı bellek çubuğunu seç (tam sayı)"
+
+#: main.cpp:75
 msgid "Select default graphic card (integer)"
 msgstr "Öntanımlı grafik kartını seç (tam sayı)"
 
-#: main.c:347
+#: main.cpp:76 cpu-x-gtk-3.12.ui:5910
 msgid "Start and connect to daemon"
-msgstr "Arka plan programını başlat ve bağlan"
+msgstr "Art alan hizmetini başlat ve bağlan"
 
-#: main.c:348
+#: main.cpp:77
 msgid "Verbose output"
 msgstr "Ayrıntılı çıktı"
 
-#: main.c:349
+#: main.cpp:78
 msgid "Print help and exit"
 msgstr "Yardımı yazdır ve çık"
 
-#: main.c:350
+#: main.cpp:79
 msgid "Print version and exit"
 msgstr "Sürümü yazdır ve çık"
 
-#: main.c:351
+#: main.cpp:80
 msgid "Print CPUID values in decimal (default is hexadeximal)"
 msgstr ""
 "CPUID değerlerini ondalık olarak yazdır (öntanımlı olarak onaltılıktır)"
 
-#: main.c:352
+#: main.cpp:81
 msgid "Disable colored output"
 msgstr "Renkli çıktıyı devre dışı bırak"
 
-#: main.c:353
+#: main.cpp:82
 msgid "Print information for debugging"
 msgstr "Hata ayıklama bilgilerini yazdır"
 
-#: main.c:354
+#: main.cpp:83
 msgid "Print required information to paste in an issue"
 msgstr "Bir soruna yapıştırmak için gerekli bilgileri yazdır"
 
-#: main.c:355
+#: main.cpp:84
 msgid "Set key mapping for NCurses mode (a[rrows]|e[macs]|i[nverted-T]|v[im])"
 msgstr ""
 "NCurses modu için tuş atamasını ayarla (a[rrows]|e[macs]|i[nverted-T]|v[im])"
 
-#: main.c:366
+#: main.cpp:95
 msgid "Add default command line arguments"
 msgstr "Öntanımlı komut satırı argümanlarını ekle"
 
-#: main.c:367
+#: main.cpp:96
 msgid "Enforce the bus clock"
 msgstr "Veri yolu saatini zorla"
 
-#: main.c:368
-msgid "Ignore CPU frequency reported by libcpuid"
-msgstr "libcpuid tarafından bildirilen CPU frekansını yok say"
+#: main.cpp:97
+msgid ""
+"Ignore CPU values reported by libcpuid (comma-separated values among 'temp', "
+"'volt' and 'freq')"
+msgstr ""
+"Libcpuid tarafından bildirilen CPU değerlerini görmezden gel ('temp', 'volt' "
+"ve 'freq' arasında virgülle ayrılmış değerler)"
 
-#: main.c:369
+#: main.cpp:98
 msgid "Read CPUID raw data from a given file"
 msgstr "Belirtilen bir dosyadan CPUID ham verilerini oku"
 
-#: main.c:370
+#: main.cpp:99
 msgid "Only print a message if CPU is not present in the database"
 msgstr "Yalnızca veri tabanında CPU yoksa bir mesaj yazdır"
 
-#: main.c:394
+#: main.cpp:126
 #, c-format
 msgid "Usage: %s DISPLAY [OPTIONS]\n"
 msgstr "Kullanım: %s EKRAN [SEÇENEKLER]\n"
 
-#: main.c:395
+#: main.cpp:127
 msgid "Available DISPLAY:"
 msgstr "Kullanılabilir EKRAN:"
 
-#: main.c:404
+#: main.cpp:135
 msgid "Available OPTIONS:"
 msgstr "Kullanılabilir SEÇENEKLER:"
 
-#: main.c:412
+#: main.cpp:144
 msgid "Influenceable environment variables:"
 msgstr "Etkilenebilir ortam değişkenleri:"
 
-#: main.c:443
+#: main.cpp:175
 msgid "This is free software: you are free to change and redistribute it."
 msgstr "Bu bir özgür yazılımdır: değiştirmek ve yeniden dağıtmakta özgürsünüz."
 
-#: main.c:445
+#: main.cpp:177
 #, c-format
 msgid "See the %s license: <%s>\n"
 msgstr "%s lisansına bakın: <%s>\n"
 
-#: main.c:452
+#: main.cpp:184
 #, c-format
 msgid "-- %-9s version: %s"
 msgstr "-- %-9s sürümü: %s"
 
-#: main.c:468
-#, c-format
-msgid "failed to call wordexp (%i)"
-msgstr "wordexp çağrılamadı (%i)"
-
-#: main.c:663
+#: main.cpp:379
 #, c-format
 msgid ""
 "\n"
-"%sOops, something was wrong! %s has received signal %d (%s) and has crashed."
-"%s"
+"Oops, something was wrong! %s has received signal %d (%s) and has crashed."
 msgstr ""
 "\n"
-"%sHay aksi, birşeyler yanlış gitti! %s, %d (%s) sinyali aldı ve çöktü.%s"
+"Hay aksi, birşeyler yanlış gitti! %s, %d (%s) sinyali aldı ve çöktü."
 
-#: main.c:678
-msgid "You can paste this backtrace by opening a new issue here:"
-msgstr "Bu geri izlemeyi buraya yeni bir konu açarak yapıştırabilirsiniz:"
+#: main.cpp:381
+#, c-format
+msgid ""
+"\n"
+"Oops, something was wrong! %s has received signal %d (%s) and is trying to "
+"recover."
+msgstr ""
+"\n"
+"Hay aksi, birşeyler yanlış gitti! %s, %d (%s) sinyali aldı ve kurtarmaya "
+"çalışıyor."
 
-#: main.c:706
+#: main.cpp:405
+msgid "You can open a new issue here, by filling the template as requested:"
+msgstr "Şablonu istendiği gibi doldurarak burada yeni bir sorun açabilirsiniz:"
+
+#: main.cpp:447
 msgid "an error occurred while setting locale"
 msgstr "yerel ayar yapılırken bir hata oluştu"
 
-#: tui_ncurses.c:72
+#: options.cpp:124
+#, c-format
+msgid ""
+"Selected CPU type (%u) is not a valid number (%u is the maximum for this CPU)"
+msgstr ""
+"Seçilen CPU türü (%u) geçerli bir sayı değil (%u bu CPU için azami değerdir)"
+
+#: options.cpp:145
+#, c-format
+msgid ""
+"Selected bandwidth test (%u) is not a valid number (%u is the maximum for "
+"this system)"
+msgstr ""
+"Seçilen bant genişliği türü (%u) geçerli bir sayı değil (%u bu sistem için "
+"azami değerdir)"
+
+#: options.cpp:168
+#, c-format
+msgid ""
+"Selected RAM stick (%u) is not a valid number (%u is the maximum for this "
+"system)"
+msgstr ""
+"Seçilen RAM türü (%u) geçerli bir sayı değil (%u bu sistem için azami "
+"değerdir)"
+
+#: options.cpp:188
+#, c-format
+msgid ""
+"Selected graphic card (%u) is not a valid number (%u is the maximum for this "
+"system)"
+msgstr ""
+"Seçilen grafik kartı (%u) geçerli bir sayı değil (%u bu sistem için azami "
+"sayıdır)"
+
+#: options.cpp:204
+#, c-format
+msgid "failed to change CPU affinitiy to core %u"
+msgstr "Çekirdek %u için CPU benzeşimi değiştirilemedi"
+
+#: options.cpp:210
+#, c-format
+msgid ""
+"Selected CPU core (%u) is not a valid number (%u is the maximum for this "
+"type of core)"
+msgstr ""
+"Seçilen CPU çekirdeği (%u) geçerli bir sayı değil (%u bu çekirdek türü için "
+"azami sayıdır)"
+
+#: options.cpp:284
+#, c-format
+msgid "Selected tab (%u) is not a valid number (%u is the maximum)"
+msgstr "Seçilen sekme (%u) geçerli bir sayı değil (%u azami değerdir)"
+
+#: tui_ncurses.cpp:111
+msgid "Window is too small!"
+msgstr "Pencere çok küçük!"
+
+#: tui_ncurses.cpp:119
+msgid "Press 'h' to see help."
+msgstr "Yardımı görmek için 'h' tuşuna basın."
+
+#: tui_ncurses.cpp:232
+#, c-format
+msgid "Welcome in %s NCurses help!\n"
+msgstr "%s NCurses yardımına hoş geldiniz!\n"
+
+#: tui_ncurses.cpp:233
+msgid "This help describes how to use this Text-based User Interface."
+msgstr ""
+"Bu yardım, metin tabanlı kullanıcı arayüzünün nasıl kullanılacağını açıklar."
+
+#: tui_ncurses.cpp:235
+msgid "Global keys:"
+msgstr "Genel tuşlar:"
+
+#: tui_ncurses.cpp:236
+msgid "Press 'left' key or 'tab' key to switch in left tab."
+msgstr "Sol sekmeye geçmek için 'sol' veya 'tab' tuşuna basın."
+
+#: tui_ncurses.cpp:237
+msgid "Press 'right' key or 'shift + tab' keys to switch in right tab."
+msgstr "Sağ sekmeye geçmek için 'sağ' veya 'shift + tab' tuşuna basın."
+
+#: tui_ncurses.cpp:238
+msgid "Press 'h' key to see this help."
+msgstr "Bu yardımı görmek için 'h' tuşuna basın."
+
+#: tui_ncurses.cpp:239
+msgid "Press 'q' key to exit."
+msgstr "Çıkmak için 'q' tuşuna basın."
+
+#: tui_ncurses.cpp:241
+msgid "CPU tab:"
+msgstr "CPU sekmesi:"
+
+#: tui_ncurses.cpp:242
+msgid "Press 'next page' key to decrease core type number to monitor."
+msgstr ""
+"İzlenecek çekirdek türü sayısını azaltmak için 'sonraki sayfa' tuşuna basın."
+
+#: tui_ncurses.cpp:243
+msgid "Press 'previous page' key to increase core type number to monitor."
+msgstr ""
+"İzlenecek çekirdek türü sayısını arttırmak için 'önceki sayfa' tuşuna basın."
+
+#: tui_ncurses.cpp:244
+msgid "Press 'down' key to decrease CPU core number to monitor."
+msgstr "İzlenecek CPU çekirdek sayısını azaltmak için 'aşağı' tuşuna basın."
+
+#: tui_ncurses.cpp:245
+msgid "Press 'up' key to increase CPU core number to monitor."
+msgstr "İzlenecek CPU çekirdek sayısını artırmak için 'yukarı' tuşuna basın."
+
+#: tui_ncurses.cpp:247
+msgid "Caches tab:"
+msgstr "Önbellek sekmesi:"
+
+#: tui_ncurses.cpp:248
+msgid "Press 'down' key to switch to previous test."
+msgstr "Önceki teste geçmek için 'aşağı' tuşuna basın."
+
+#: tui_ncurses.cpp:249
+msgid "Press 'up' key to switch to next test."
+msgstr "Sonraki teste geçmek için 'yukarı' tuşuna basın."
+
+#: tui_ncurses.cpp:251
+msgid "Bench tab:"
+msgstr "Karşılaştırma sekmesi:"
+
+#: tui_ncurses.cpp:252
+msgid "Press 'down' key to decrement benchmark duration."
+msgstr "Karşılaştırma süresini azaltmak için 'aşağı' tuşuna basın."
+
+#: tui_ncurses.cpp:253
+msgid "Press 'up' key to increment benchmark duration."
+msgstr "Karşılaştırma süresini artırmak için 'yukarı' tuşuna basın."
+
+#: tui_ncurses.cpp:254
+msgid "Press 'next page' key to decrement number of threads to use."
+msgstr ""
+"Kullanılacak iş parçacığı sayısını azaltmak için 'sonraki sayfa' tuşuna "
+"basın."
+
+#: tui_ncurses.cpp:255
+msgid "Press 'previous page' key to increment number of threads to use."
+msgstr ""
+"Kullanılacak iş parçacığı sayısını artırmak için 'önceki sayfa' tuşuna basın."
+
+#: tui_ncurses.cpp:256
+msgid "Press 's' key to start/stop prime numbers (slow) benchmark."
+msgstr ""
+"Asal sayıları (yavaş) karşılaştırmayı başlatmak/durdurmak için 's' tuşuna "
+"basın."
+
+#: tui_ncurses.cpp:257
+msgid "Press 'f' key to start/stop prime numbers (fast) benchmark."
+msgstr ""
+"Asal sayıları (hızlı) karşılaştırmayı başlatmak/durdurmak için 'f' tuşuna "
+"basın."
+
+#: tui_ncurses.cpp:259
+msgid "Graphics tab:"
+msgstr "Grafikler sekmesi:"
+
+#: tui_ncurses.cpp:260
+msgid "Press 'down' key to switch to previous graphic card."
+msgstr "Önceki grafik kartına geçmek için 'aşağı' tuşuna basın."
+
+#: tui_ncurses.cpp:261
+msgid "Press 'up' key to switch to next graphic card."
+msgstr "Sonraki grafik kartına geçmek için 'yukarı' tuşuna basın."
+
+#: tui_ncurses.cpp:263
+msgid "Press any key to exit this help."
+msgstr "Yardımdan çıkmak için herhangi bir tuşa basın."
+
+#: tui_ncurses.cpp:640
 msgid "Starting NCurses TUI…"
 msgstr "NCurses metin tabanlı arayüzü başlatılıyor…"
 
-#: tui_ncurses.c:80
+#: tui_ncurses.cpp:649
 msgid ""
 "FATAL ERROR: terminfo database could not be found (try to set TERMINFO "
 "environment variable)"
@@ -932,219 +1074,524 @@ msgstr ""
 "ÖNEMLİ HATA: terminfo veri tabanı bulunamadı (TERMINFO ortam değişkenini "
 "ayarlamayı deneyin)"
 
-#: tui_ncurses.c:85
+#: tui_ncurses.cpp:654
 #, c-format
 msgid "Failed to set up %s terminal (err=%i); falling back to %s"
 msgstr "%s terminali ayarlanamadı (err=%i); yedek olarak %s kullanılıyor"
 
-#: tui_ncurses.c:310
-msgid "Window is too small!"
-msgstr "Pencere çok küçük!"
-
-#: tui_ncurses.c:318
-msgid "Press 'h' to see help."
-msgstr "Yardımı görmek için 'h' tuşuna basın."
-
-#: tui_ncurses.c:474
-#, c-format
-msgid "Welcome in %s NCurses help!\n"
-msgstr "%s NCurses yardımına hoş geldiniz!\n"
-
-#: tui_ncurses.c:475
-msgid "This help describes how to use this Text-based User Interface."
-msgstr ""
-"Bu yardım, metin tabanlı kullanıcı arayüzünün nasıl kullanılacağını açıklar."
-
-#: tui_ncurses.c:477
-msgid "Global keys:"
-msgstr "Genel tuşlar:"
-
-#: tui_ncurses.c:478
-msgid "Press 'left' key to switch in left tab."
-msgstr "Sol sekmeye geçmek için 'sol' tuşuna basın."
-
-#: tui_ncurses.c:479
-msgid "Press 'right' key to switch in right tab."
-msgstr "Sağ sekmeye geçmek için 'sağ' tuşuna basın."
-
-#: tui_ncurses.c:480
-msgid "Press 'h' key to see this help."
-msgstr "Bu yardımı görmek için 'h' tuşuna basın."
-
-#: tui_ncurses.c:481
-msgid "Press 'q' key to exit."
-msgstr "Çıkmak için 'q' tuşuna basın."
-
-#: tui_ncurses.c:483
-msgid "CPU tab:"
-msgstr "CPU sekmesi:"
-
-#: tui_ncurses.c:484
-msgid "Press 'down' key to decrease core number to monitor."
-msgstr "İzlenecek çekirdek sayısını azaltmak için 'aşağı' tuşuna basın."
-
-#: tui_ncurses.c:485
-msgid "Press 'up' key to increase core number to monitor."
-msgstr "İzlenecek çekirdek sayısını artırmak için 'yukarı' tuşuna basın."
-
-#: tui_ncurses.c:487
-msgid "Caches tab:"
-msgstr "Önbellek sekmesi:"
-
-#: tui_ncurses.c:488
-msgid "Press 'down' key to switch to previous test."
-msgstr "Önceki teste geçmek için 'aşağı' tuşuna basın."
-
-#: tui_ncurses.c:489
-msgid "Press 'up' key' to switch to next test."
-msgstr "Sonraki teste geçmek için 'yukarı' tuşuna basın."
-
-#: tui_ncurses.c:491
-msgid "Bench tab:"
-msgstr "Karşılaştırma sekmesi:"
-
-#: tui_ncurses.c:492
-msgid "Press 'down' key to decrement benchmark duration."
-msgstr "Karşılaştırma süresini azaltmak için 'aşağı' tuşuna basın."
-
-#: tui_ncurses.c:493
-msgid "Press 'up' key to increment benchmark duration."
-msgstr "Karşılaştırma süresini artırmak için 'yukarı' tuşuna basın."
-
-#: tui_ncurses.c:494
-msgid "Press 'next page' key to decrement number of threads to use."
-msgstr ""
-"Kullanılacak iş parçacığı sayısını azaltmak için 'sonraki sayfa' tuşuna "
-"basın."
-
-#: tui_ncurses.c:495
-msgid "Press 'previous page' key to increment number of threads to use."
-msgstr ""
-"Kullanılacak iş parçacığı sayısını artırmak için 'önceki sayfa' tuşuna basın."
-
-#: tui_ncurses.c:496
-msgid "Press 's' key to start/stop prime numbers (slow) benchmark."
-msgstr ""
-"Asal sayıları (yavaş) karşılaştırmayı başlatmak/durdurmak için 's' tuşuna "
-"basın."
-
-#: tui_ncurses.c:497
-msgid "Press 'f' key to start/stop prime numbers (fast) benchmark."
-msgstr ""
-"Asal sayıları (hızlı) karşılaştırmayı başlatmak/durdurmak için 'f' tuşuna "
-"basın."
-
-#: tui_ncurses.c:499
-msgid "Graphics tab:"
-msgstr "Grafikler sekmesi:"
-
-#: tui_ncurses.c:500
-msgid "Press 'down' key to switch to previous graphic card."
-msgstr "Önceki grafik kartına geçmek için 'aşağı' tuşuna basın."
-
-#: tui_ncurses.c:501
-msgid "Press 'up' key to switch to next graphic card."
-msgstr "Sonraki grafik kartına geçmek için 'yukarı' tuşuna basın."
-
-#: tui_ncurses.c:503
-msgid "Press any key to exit this help."
-msgstr "Yardımdan çıkmak için herhangi bir tuşa basın."
-
-#: util.c:198
+#: util.cpp:172
 #, c-format
 msgid "cannot find unit in '%s' string at position %i"
 msgstr "'%s' dizgesinde %i konumundaki birim bulunamıyor"
 
-#: util.c:210
+#: util.cpp:235
 #, c-format
-msgid "String '%s' is too long, truncating…"
-msgstr "'%s' dizgesi çok uzun, kesiliyor…"
+msgid "an error occurred while opening file '%s'"
+msgstr "'%s' dosyası açılırken bir hata oluştu"
 
-#: util.c:287
+#: util.cpp:273
 #, c-format
-msgid "an error occurred while opening file '%s' (%s)"
-msgstr "'%s' dosyası açılırken bir hata oluştu (%s)"
+msgid "an error occurred while running command '%s'"
+msgstr "'%s' komutu çalıştırılırken bir hata oluştu"
 
-#: util.c:317
-#, c-format
-msgid "an error occurred while running command '%s' (%s)"
-msgstr "'%s' komutu çalıştırılırken bir hata oluştu (%s)"
+#: util.cpp:396
+msgid "set_cpu_affinity() not supported on this operating system"
+msgstr "set_cpu_affinity() bu işletim sisteminde desteklenmiyor"
 
-#: util.c:375 util.c:435
-#, c-format
-msgid "failed to open %s directory"
-msgstr "%s dizini açılamadı"
+#: data.hpp:103 data.hpp:244 data.hpp:332
+msgid "Vendor"
+msgstr "Satıcı"
 
-#: util.c:448
-msgid "an error occurred while compiling regex"
-msgstr "düzenli ifade derlenirken bir hata oluştu"
+#: data.hpp:104
+msgid "Code Name"
+msgstr "Kod Adı"
 
-#: util.c:574
-msgid "pkexec: authorization could not be obtained (dialog dismissed)"
-msgstr "pkexec: yetkilendirme alınamadı (iletişim kutusu kapatıldı)"
+#: data.hpp:105
+msgid "Package"
+msgstr "Paket"
 
-#: util.c:577
-msgid "pkexec: authorization could not be obtained (not authorized)"
-msgstr "pkexec: yetkilendirme alınamadı (yetkilendirilmedi)"
+#: data.hpp:106
+msgid "Technology"
+msgstr "Teknoloji"
 
-#: util.c:580
-msgid "pkexec: command not found"
-msgstr "pkexec: komut bulunamadı"
+#: data.hpp:107 data.hpp:268
+msgid "Voltage"
+msgstr "Gerilim"
 
-#: util.c:583
-msgid "pkexec: unexpected error code"
-msgstr "pkexec: beklenmedik hata kodu"
+#: data.hpp:108
+msgid "Specification"
+msgstr "Tanımlama"
 
-#: cpu-x.h:53
-msgid "FATAL ERROR: could not allocate memory"
-msgstr "ÖNEMLİ HATA: bellek ayrılamadı"
+#: data.hpp:109
+msgid "Family"
+msgstr "Aile"
 
-#: cpu-x.h:92
+#: data.hpp:110
+msgid "Disp. Family"
+msgstr "Görüntülenen Aile"
+
+#: data.hpp:111 data.hpp:224 data.hpp:245 data.hpp:335
+msgid "Model"
+msgstr "Model"
+
+#: data.hpp:112
+msgid "Disp. Model"
+msgstr "Görüntülenen Model"
+
+#: data.hpp:113
+msgid "Temp."
+msgstr "Sıcaklık"
+
+#: data.hpp:114
+msgid "Stepping"
+msgstr "Basamak Seviyesi"
+
+#: data.hpp:115
+msgid "Instructions"
+msgstr "Talimatlar"
+
+#: data.hpp:125
+msgid "L1 Data"
+msgstr "L1 Verileri"
+
+#: data.hpp:126
+msgid "L1 Inst."
+msgstr "L1 Talimat."
+
+#: data.hpp:127
+msgid "Level 2"
+msgstr "Seviye 2"
+
+#: data.hpp:128
+msgid "Level 3"
+msgstr "Seviye 3"
+
+#: data.hpp:137 cpu-x-gtk-3.12.ui:1232
+msgid "Cores"
+msgstr "Çekirdekler"
+
+#: data.hpp:138 data.hpp:408 cpu-x-gtk-3.12.ui:1252
+msgid "Threads"
+msgstr "İş Parçacıkları"
+
+#: data.hpp:155
+msgid "Core Speed"
+msgstr "Çekirdek Hızı"
+
+#: data.hpp:156
+msgid "Multiplier"
+msgstr "Katsayı"
+
+#: data.hpp:157
+msgid "Bus Speed"
+msgstr "Veri Yolu Hızı"
+
+#: data.hpp:158 data.hpp:341
+msgid "Usage"
+msgstr "Kullanım"
+
+#: data.hpp:188 data.hpp:265
+msgid "Size"
+msgstr "Boyut"
+
+#: data.hpp:189 data.hpp:267
+msgid "Speed"
+msgstr "Hız"
+
+#: data.hpp:223 data.hpp:259
+msgid "Manufacturer"
+msgstr "Üretici"
+
+#: data.hpp:225
+msgid "Revision"
+msgstr "Düzeltme"
+
+#: data.hpp:233
+msgid "Brand"
+msgstr "Marka"
+
+#: data.hpp:234
+msgid "Version"
+msgstr "Sürüm"
+
+#: data.hpp:235
+msgid "Date"
+msgstr "Tarih"
+
+#: data.hpp:236
+msgid "ROM Size"
+msgstr "ROM Boyutu"
+
+#: data.hpp:260
+msgid "Part Number"
+msgstr "Parça Numarası"
+
+#: data.hpp:261
+msgid "Type"
+msgstr "Tür"
+
+#: data.hpp:262
+msgid "Type Detail"
+msgstr "Tür Ayrıntısı"
+
+#: data.hpp:263
+msgid "Device Locator"
+msgstr "Aygıt Bulucu"
+
+#: data.hpp:264
+msgid "Bank Locator"
+msgstr "Banko Bulucu"
+
+#: data.hpp:266
+msgid "Rank"
+msgstr "Rütbe"
+
+#: data.hpp:292
+msgid "Name"
+msgstr "Ad"
+
+#: data.hpp:293
+msgid "Kernel"
+msgstr "Çekirdek"
+
+#: data.hpp:294
+msgid "Hostname"
+msgstr "Ana Makine Adı"
+
+#: data.hpp:295
+msgid "Uptime"
+msgstr "Çalışma Zamanı"
+
+#: data.hpp:303
+msgid "Used"
+msgstr "Kullanılmış"
+
+#: data.hpp:304
+msgid "Buffers"
+msgstr "Arabellek"
+
+#: data.hpp:305
+msgid "Cached"
+msgstr "Önbelleğe alınmış"
+
+#: data.hpp:306
+msgid "Free"
+msgstr "Boş"
+
+#: data.hpp:307
+msgid "Swap"
+msgstr "Takas"
+
+#: data.hpp:333
+msgid "Driver"
+msgstr "Sürücü"
+
+#: data.hpp:334
+msgid "UMD Version"
+msgstr "UMD Sürümü"
+
+#: data.hpp:336
+msgid "Compute Unit"
+msgstr "İşlem Birimi"
+
+#: data.hpp:337
+msgid "Device ID"
+msgstr "Aygıt Kimliği"
+
+#: data.hpp:338
+msgid "VBIOS Version"
+msgstr "VBIOS Sürümü"
+
+#. #-#-#-#-#  source_ui.pot (cpu-x )  #-#-#-#-#
+#. Setting: "Interface" tab
+#: data.hpp:339 cpu-x-gtk-3.12.ui:5807
+msgid "Interface"
+msgstr "Arayüz"
+
+#: data.hpp:340
+msgid "Temperature"
+msgstr "Sıcaklık"
+
+#: data.hpp:342
+msgid "Core Voltage"
+msgstr "Çekirdek Gerilimi"
+
+#: data.hpp:343
+msgid "Power Avg"
+msgstr "Güç Ortalaması"
+
+#: data.hpp:344
+msgid "Core Clock"
+msgstr "Çekirdek Saati"
+
+#: data.hpp:345
+msgid "Memory Clock"
+msgstr "Bellek Saati"
+
+#: data.hpp:346
+msgid "Memory Used"
+msgstr "Kullanılan Bellek"
+
+#: data.hpp:347
+msgid "Resizable BAR"
+msgstr "Yeniden Boyutlandırılabilir Çubuk"
+
+#: data.hpp:348
+msgid "Vulkan RT"
+msgstr "Vulkan RT"
+
+#: data.hpp:349
+msgid "OpenGL Version"
+msgstr "OpenGL Sürümü"
+
+#: data.hpp:350
+msgid "Vulkan Version"
+msgstr "Vulkan Sürümü"
+
+#: data.hpp:351
+msgid "OpenCL Version"
+msgstr "OpenCL Sürümü"
+
+#: data.hpp:387
+msgid "Score"
+msgstr "Puan"
+
+#: data.hpp:388
+msgid "Run"
+msgstr "Çalıştır"
+
+#: data.hpp:407
+msgid "Duration"
+msgstr "Süre"
+
+#: util.hpp:77
 msgid "bytes"
 msgstr "bayt"
 
 #. TRANSLATORS: initials for kilobyte (10³): please put initials (keep it short)
-#: cpu-x.h:95
+#: util.hpp:80
 msgid "kB"
 msgstr "kB"
 
 #. TRANSLATORS: initials for megabyte (10⁶): please put initials (keep it short)
-#: cpu-x.h:97
+#: util.hpp:82
 msgid "MB"
 msgstr "MB"
 
 #. TRANSLATORS: initials for gigabyte (10⁹): please put initials (keep it short)
-#: cpu-x.h:99
+#: util.hpp:84
 msgid "GB"
 msgstr "GB"
 
 #. TRANSLATORS: initials for terabyte (10¹²): please put initials (keep it short)
-#: cpu-x.h:101
+#: util.hpp:86
 msgid "TB"
 msgstr "TB"
 
 #. TRANSLATORS: initials for kibibyte (2¹⁰): please put initials (keep it short)
-#: cpu-x.h:104
+#: util.hpp:89
 msgid "KiB"
 msgstr "KiB"
 
 #. TRANSLATORS: initials for mebibyte (2²⁰): please put initials (keep it short)
-#: cpu-x.h:106
+#: util.hpp:91
 msgid "MiB"
 msgstr "MiB"
 
 #. TRANSLATORS: initials for gibibyte (2³⁰): please put initials (keep it short)
-#: cpu-x.h:108
+#: util.hpp:93
 msgid "GiB"
 msgstr "GiB"
 
 #. TRANSLATORS: initials for tebibyte (2⁴⁰): please put initials (keep it short)
-#: cpu-x.h:110
+#: util.hpp:95
 msgid "TiB"
 msgstr "TiB"
 
-#~ msgid "failed to call clGetDeviceIDs"
-#~ msgstr "clGetDeviceIDs çağrılamadı"
+#: cpu-x-gtk-3.12.ui:1184
+msgid "Cache"
+msgstr "Önbellek"
+
+#. Setting: refresh time for UI
+#: cpu-x-gtk-3.12.ui:5721
+msgid "Refresh time"
+msgstr "Yenileme zamanı"
+
+#. Setting: GUI theme
+#: cpu-x-gtk-3.12.ui:5745
+msgid "Theme"
+msgstr "Tema"
+
+#. Setting: automatic GUI theme
+#: cpu-x-gtk-3.12.ui:5760
+msgid "Automatic"
+msgstr "Otomatik"
+
+#. Setting: light GUI theme
+#: cpu-x-gtk-3.12.ui:5761
+msgid "Light"
+msgstr "Açık"
+
+#. Setting: dark GUI theme
+#: cpu-x-gtk-3.12.ui:5762
+msgid "Dark"
+msgstr "Koyu"
+
+#. Setting: temperature unit
+#: cpu-x-gtk-3.12.ui:5775
+msgid "Temperature unit"
+msgstr "Sıcaklık birimi"
+
+#. Setting: default tab at startup
+#: cpu-x-gtk-3.12.ui:5826
+msgid "Default tab"
+msgstr "Öntanımlı sekme"
+
+#. Setting: default CPU core at startup
+#: cpu-x-gtk-3.12.ui:5839
+msgid "Default CPU core"
+msgstr "Öntanımlı CPU çekirdeği"
+
+#. Setting: default cache test at startup
+#: cpu-x-gtk-3.12.ui:5852
+msgid "Default cache test"
+msgstr "Öntanımlı önbellek testi"
+
+#. Setting: print CPUID values in decimal or hexadecimal
+#: cpu-x-gtk-3.12.ui:5895
+msgid "Print CPUID values in decimal"
+msgstr "CPUID değerlerini ondalık olarak yazdır"
+
+#. Setting: default graphic card at startup
+#: cpu-x-gtk-3.12.ui:5928
+msgid "Default graphic card"
+msgstr "Öntanımlı grafik kartı"
+
+#. Setting: default CPU core at startup
+#: cpu-x-gtk-3.12.ui:5952
+msgid "Default core type"
+msgstr "Öntanımlı çekirdek türü"
+
+#. Setting: default graphic card at startup
+#: cpu-x-gtk-3.12.ui:5976
+msgid "Default memory stick"
+msgstr "Öntanımlı bellek çubuğu"
+
+#. Setting: "Startup" tab
+#: cpu-x-gtk-3.12.ui:6004
+msgid "Startup"
+msgstr "Başlangıç"
+
+#~ msgid "Calculating CPU multipliers"
+#~ msgstr "CPU çarpanları hesaplanıyor"
+
+#, c-format
+#~ msgid "Current: PCIe Gen%1dx%d / Max: Gen%1dx%d"
+#~ msgstr "Şu anki: PCIe Gen%1dx%d / En yüksek: Gen%1dx%d"
+
+#~ msgid "failed to retrieve GPU clocks"
+#~ msgstr "GPU saatleri alınamadı"
+
+#, c-format
+#~ msgid "Core #%i"
+#~ msgstr "Çekirdek #%i"
+
+#~ msgid "Setting label names"
+#~ msgstr "Etiket adları ayarlanıyor"
+
+#, c-format
+#~ msgid "Bank %i"
+#~ msgstr "%i Bankası"
+
+#~ msgid "Reference"
+#~ msgstr "Kaynak"
+
+#~ msgid "Distribution"
+#~ msgstr "Dağıtım"
+
+#~ msgid "Compiler"
+#~ msgstr "Derleyici"
+
+#~ msgid "GPU clock"
+#~ msgstr "GPU saati"
+
+#~ msgid "Dumping data…"
+#~ msgstr "Veriler dökülüyor…"
+
+#~ msgid "Freeing memory"
+#~ msgstr "Bellek boşaltılıyor"
+
+#~ msgid "Ignore CPU frequency reported by libcpuid"
+#~ msgstr "libcpuid tarafından bildirilen CPU frekansını yok say"
+
+#, c-format
+#~ msgid "failed to call wordexp (%i)"
+#~ msgstr "wordexp çağrılamadı (%i)"
+
+#~ msgid "Press 'home' key to scroll up in a page."
+#~ msgstr "Bir sayfada yukarı kaydırmak için 'home' tuşuna basın."
+
+#~ msgid "Press 'end' key to scroll down in a page."
+#~ msgstr "Bir sayfada aşağı kaydırmak için 'end' tuşuna basın."
+
+#, c-format
+#~ msgid "String '%s' is too long, truncating…"
+#~ msgstr "'%s' dizgesi çok uzun, kesiliyor…"
+
+#, c-format
+#~ msgid "failed to open %s directory"
+#~ msgstr "%s dizini açılamadı"
+
+#~ msgid "an error occurred while compiling regex"
+#~ msgstr "düzenli ifade derlenirken bir hata oluştu"
+
+#~ msgid "FATAL ERROR: could not allocate memory"
+#~ msgstr "ÖNEMLİ HATA: bellek ayrılamadı"
+
+#~ msgid "Enumerating Vulkan instance extension properties"
+#~ msgstr "Vulkan örneği uzantısı özellikleri numaralandırılıyor"
+
+#, c-format
+#~ msgid "failed to call vkEnumerateInstanceExtensionProperties (%s)"
+#~ msgstr "vkEnumerateInstanceExtensionProperties çağrılamadı (%s)"
+
+#, c-format
+#~ msgid ""
+#~ "failed to call vkEnumerateInstanceExtensionProperties to fill "
+#~ "VkExtensionProperties (%s)"
+#~ msgstr ""
+#~ "VkExtensionProperties doldurmak için "
+#~ "vkEnumerateInstanceExtensionProperties çağrılamadı (%s)"
+
+#~ msgid "Vulkan API is not available"
+#~ msgstr "Vulkan API kullanılabilir değil"
+
+#, c-format
+#~ msgid "%s"
+#~ msgstr "%s"
+
+#, c-format
+#~ msgid ""
+#~ "CPU hybrid architecture is not supported. For more details, please refer "
+#~ "to following issue: %s"
+#~ msgstr ""
+#~ "Hibrit CPU mimarisi desteklenmiyor. Daha fazla ayrıntı için lütfen şu "
+#~ "soruna bakın: %s"
+
+#~ msgid "NOT SUPPORTED"
+#~ msgstr "DESTEKLENMİYOR"
+
+#~ msgid "There is no device with Vulkan support"
+#~ msgstr "Vulkan desteğine sahip bir aygıt yok"
+
+#~ msgid "Socket(s)"
+#~ msgstr "Soket(ler)"
+
+#~ msgid "Thread(s)"
+#~ msgstr "İş Parçacık(lar)ı"
+
+#~ msgid "You can paste this backtrace by opening a new issue here:"
+#~ msgstr "Bu geri izlemeyi buraya yeni bir konu açarak yapıştırabilirsiniz:"
 
 #~ msgid "faild to call clGetDeviceIDs"
 #~ msgstr "clGetDeviceIDs çağrılamadı"
