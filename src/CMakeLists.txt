@@ -3,15 +3,14 @@
 # GTK3+
 if(WITH_GTK)
 	set(MINIMUM_GTK_VERSION 3.12.0)
-	pkg_check_modules(GTK3 gtk+-3.0>=${MINIMUM_GTK_VERSION})
+	pkg_check_modules(GTK3 gtkmm-3.0>=${MINIMUM_GTK_VERSION})
 	if(GTK3_FOUND)
 		include_directories(${GTK3_INCLUDE_DIRS})
 		link_directories(${GTK3_LIBRARY_DIRS})
 		add_definitions(${GTK3_CFLAGS_OTHER})
 		add_library(gui_gtk STATIC
-			gui_gtk.c
-			gui_gtk.h
-			gui_gtk_id.h
+			gui_gtk.cpp
+			gui_gtk.hpp
 			${GRESOURCES}
 		)
 		set(GTK3_LIBRARIES "gui_gtk" ${GTK3_LIBRARIES})
@@ -23,13 +22,19 @@ endif(WITH_GTK)
 
 # NCurses
 if(WITH_NCURSES)
-	pkg_check_modules(NCURSES ncursesw)
+	# Assume ncurses from the base on FreeBSD
+	if(${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD")
+		set(NCURSES_FOUND 1)
+		set(NCURSES_LIBRARIES "-l:libncursesw.so")
+	else()
+		pkg_check_modules(NCURSES ncursesw)
+	endif()
 	if(NCURSES_FOUND)
 		include_directories(${NCURSES_INCLUDE_DIRS})
 		link_directories(${NCURSES_LIBRARY_DIRS})
 		add_library(tui_ncurses STATIC
-			tui_ncurses.c
-			tui_ncurses.h
+			tui_ncurses.cpp
+			tui_ncurses.hpp
 		)
 		set(NCURSES_LIBRARIES "tui_ncurses" ${NCURSES_LIBRARIES})
 	endif(NCURSES_FOUND)
@@ -37,12 +42,12 @@ endif(WITH_NCURSES)
 
 # Gettext
 if(Intl_FOUND)
-	include_directories(${CMAKE_BINARY_DIR}/po)
+	include_directories(${Intl_INCLUDE_DIRS})
 endif(Intl_FOUND)
 
 # Libcpuid
 if(WITH_LIBCPUID)
-	pkg_check_modules(LIBCPUID libcpuid>=0.5.0)
+	pkg_check_modules(LIBCPUID libcpuid>=0.6.0)
 	if(LIBCPUID_FOUND)
 		include_directories(${LIBCPUID_INCLUDE_DIRS})
 		link_directories(${LIBCPUID_LIBRARY_DIRS})
@@ -70,7 +75,18 @@ if(WITH_LIBGLFW)
 		link_directories(${LIBGL_LIBRARY_DIRS} ${LIBGLFW_LIBRARY_DIRS})
 		add_definitions(${LIBGL_CFLAGS_OTHER} ${LIBGLFW_CFLAGS_OTHER})
 	endif(LIBGL_FOUND AND LIBGLFW_FOUND)
+
 endif(WITH_LIBGLFW)
+
+# Vulkan
+if(WITH_VULKAN)
+	pkg_check_modules(VULKAN vulkan)
+	if(VULKAN_FOUND)
+		include_directories(${VULKAN_INCLUDE_DIRS})
+		link_directories(${VULKAN_LIBRARY_DIRS})
+		add_definitions(${VULKAN_CFLAGS_OTHER})
+	endif(VULKAN_FOUND)
+endif(WITH_VULKAN)
 
 # OpenCL
 if(WITH_OPENCL)
@@ -84,8 +100,19 @@ endif(WITH_OPENCL)
 
 # Libprocps
 set(LIBSYSTEM 0)
+set(LIBPROC2 -1)
 if(WITH_LIBPROCPS AND ${CMAKE_SYSTEM_NAME} MATCHES "Linux" AND NOT FORCE_LIBSTATGRAB)
-	pkg_check_modules(LIBPROCPS libprocps)
+	pkg_check_modules(LIBPROC2 libproc2)
+	if(LIBPROC2_FOUND)
+		include_directories(${LIBPROC2_INCLUDE_DIRS})
+		link_directories(${LIBPROC2_LIBRARY_DIRS})
+		add_definitions(${LIBPROC2_CFLAGS_OTHER})
+		set(LIBSYSTEM 1)
+		set(LIBPROC2 1)
+	else()
+		pkg_check_modules(LIBPROCPS libprocps)
+		set(LIBPROC2 0)
+	endif()
 	if(LIBPROCPS_FOUND)
 		include_directories(${LIBPROCPS_INCLUDE_DIRS})
 		link_directories(${LIBPROCPS_LIBRARY_DIRS})
@@ -135,9 +162,14 @@ print_config("GETTEXT"             0                        GETTEXT_FOUND     WI
 print_config("LIBCPUID"            "${LIBCPUID_VERSION}"    LIBCPUID_FOUND    WITH_LIBCPUID)
 print_config("LIBPCI"              "${LIBPCI_VERSION}"      LIBPCI_FOUND      WITH_LIBPCI)
 print_config("LIBGLFW"             "${LIBGLFW_VERSION}"     LIBGLFW_FOUND     WITH_LIBGLFW)
+print_config("Vulkan"              "${VULKAN_VERSION}"      VULKAN_FOUND      WITH_VULKAN)
 print_config("OpenCL"              "${OPENCL_VERSION}"      OPENCL_FOUND      WITH_OPENCL)
 if(${CMAKE_SYSTEM_NAME} MATCHES "Linux" AND NOT FORCE_LIBSTATGRAB)
-	print_config("LIBPROCPS"   "${LIBPROCPS_VERSION}"   LIBPROCPS_FOUND   WITH_LIBPROCPS)
+	if(${LIBPROC2} EQUAL 1)
+		print_config("LIBPROC2"    "${LIBPROC2_VERSION}"    LIBPROC2_FOUND    WITH_LIBPROCPS)
+	else()
+		print_config("LIBPROCPS"   "${LIBPROCPS_VERSION}"   LIBPROCPS_FOUND   WITH_LIBPROCPS)
+	endif()
 else()
 	print_config("LIBSTATGRAB" "${LIBSTATGRAB_VERSION}" LIBSTATGRAB_FOUND WITH_LIBSTATGRAB)
 endif()
@@ -151,27 +183,46 @@ print_config("BANDWIDTH"           "${BANDWIDTH_VERSION}"   BANDWIDTH_FOUND   WI
 
 # Executable
 add_executable(${APP_EXEC}
-	main.c
-	util.c
-	cpu-x.h
-	core.c
-	core.h
-	ipc.h
+	core.cpp
+	core.hpp
+	daemon_client.cpp
+	daemon_client.hpp
+	daemon.h
+	data.cpp
+	data.hpp
+	logger.cpp
+	logger.hpp
+	main.cpp
+	options.cpp
+	options.hpp
+	util.cpp
+	util.hpp
 )
 
 add_executable(${DAEMON_EXEC}
-	daemon.c
+	daemon_server.cpp
+	daemon_server.hpp
 	daemon.h
-	ipc.h
-	cpu-x.h
+	logger.cpp
+	logger.hpp
+	options.cpp
+	options.hpp
+	util.cpp
+	util.hpp
 )
 
 # Libsystem extra-definitions
-if(${LIBSYSTEM} EQUAL 0 OR ${LIBSYSTEM} EQUAL 1)
+if(${LIBSYSTEM} EQUAL 0 OR ${LIBSYSTEM} EQUAL 1) # When Libprocps is used
 	add_definitions(-DHAS_LIBSTATGRAB=0 -DLIBSTATGRAB_VERSION=NULL)
+	if(${LIBPROC2} EQUAL 1)
+		add_definitions(-DHAS_LIBPROCPS=0 -DLIBPROCPS_VERSION=NULL)
+	else(${LIBPROC2} EQUAL 0)
+		add_definitions(-DHAS_LIBPROC2=0  -DLIBPROC2_VERSION=NULL)
+	endif()
 endif()
-if(${LIBSYSTEM} EQUAL 0 OR ${LIBSYSTEM} EQUAL 2)
-	add_definitions(-DHAS_LIBPROCPS=0   -DLIBPROCPS_VERSION=NULL)
+if(${LIBSYSTEM} EQUAL 0 OR ${LIBSYSTEM} EQUAL 2) # When Libstatgrab is used
+	add_definitions(-DHAS_LIBPROC2=0  -DLIBPROC2_VERSION=NULL)
+	add_definitions(-DHAS_LIBPROCPS=0 -DLIBPROCPS_VERSION=NULL)
 endif()
 
 # Various definitions
@@ -185,20 +236,17 @@ add_definitions(-DPRGVER="${PROJECT_VERSION}"
 	-DLOCALEDIR="${CMAKE_INSTALL_FULL_LOCALEDIR}"
 	-DTERMINFODIR="/lib/terminfo"
 	-DDAEMON_EXEC="${DAEMON_EXEC}"
+	-DDAEMON_TMP_EXEC="/tmp/${DAEMON_EXEC}"
 	-DDAEMON_PATH="${DAEMON_PATH}"
+	-DSOCKET_NAME="${DAEMON_SOCKET}"
 )
-
-if(APPIMAGE)
-	set(DAEMON_FLAGS "-static")
-	set(LIBCPUID_LIBRARIES "-l:libcpuid.a")
-endif(APPIMAGE)
 
 # Link libraries
 target_link_libraries(${APP_EXEC}
-	m
 	${Intl_LIBRARIES}
 	${CMAKE_THREAD_LIBS_INIT}
 	${Backtrace_LIBRARIES}
+	std::filesystem
 
 	${GTK3_LIBRARIES}
 	${NCURSES_LIBRARIES}
@@ -206,7 +254,9 @@ target_link_libraries(${APP_EXEC}
 	${LIBPCI_LIBRARIES}
 	${LIBGL_LIBRARIES}
 	${LIBGLFW_LIBRARIES}
+	${VULKAN_LIBRARIES}
 	${OPENCL_LIBRARIES}
+	${LIBPROC2_LIBRARIES}
 	${LIBPROCPS_LIBRARIES}
 	${LIBSTATGRAB_LIBRARIES}
 	${DMIDECODE_LIBRARIES}
@@ -218,6 +268,7 @@ target_link_libraries(${DAEMON_EXEC}
 	${DAEMON_FLAGS}
 	${Intl_LIBRARIES}
 	${CMAKE_THREAD_LIBS_INIT}
+	std::filesystem
 
 	${LIBCPUID_LIBRARIES}
 	${DMIDECODE_LIBRARIES}

@@ -1,17 +1,18 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.12)
 cmake_policy(SET CMP0048 NEW)
 if(POLICY CMP0075)
 	cmake_policy(SET CMP0075 NEW)
 endif()
 project(cpu-x
-	VERSION "4.2.0"
-	LANGUAGES C
+	VERSION "4.5.3"
+	LANGUAGES C CXX
 )
 
 
 ### DEFAULT CONFIG
 
 # Global variables
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 include(GNUInstallDirs)
 if(NOT EXISTS ${CMAKE_INSTALL_FULL_LIBEXECDIR})
@@ -25,13 +26,17 @@ set(CPU_X_DATA_DIRECTORY           ${CMAKE_INSTALL_FULL_DATADIR}/${CMAKE_PROJECT
 set(APP_EXEC                       ${CMAKE_PROJECT_NAME})
 set(DAEMON_EXEC                    ${CMAKE_PROJECT_NAME}-daemon)
 set(DAEMON_PATH                    ${CMAKE_INSTALL_FULL_LIBEXECDIR}/${DAEMON_EXEC})
+set(DAEMON_SOCKET                  ${CMAKE_INSTALL_FULL_RUNSTATEDIR}/cpu-x.sock)
 if(CMAKE_SIZEOF_VOID_P EQUAL 4)
 	set(BITNESS "32")
 else(CMAKE_SIZEOF_VOID_P EQUAL 4)
 	set(BITNESS "64")
 endif(CMAKE_SIZEOF_VOID_P EQUAL 4)
+set(CMAKE_COLOR_DIAGNOSTICS ON)
 set(CMAKE_C_FLAGS             "${CMAKE_C_FLAGS} -Wno-deprecated-declarations -Wno-unused-result")
-set(CMAKE_C_FLAGS_DEBUG       "${CMAKE_C_FLAGS_DEBUG} -Wall -Wextra -Wuninitialized -Wstrict-prototypes -Wformat -Wformat-security")
+set(CMAKE_CXX_FLAGS           "${CMAKE_CXX_FLAGS} -Wpedantic -Wno-deprecated-declarations -Wno-unused-result")
+set(CMAKE_C_FLAGS_DEBUG       "${CMAKE_C_FLAGS_DEBUG} -Wall -Wextra -Wuninitialized -Wformat -Wformat-security -Wstrict-prototypes")
+set(CMAKE_CXX_FLAGS_DEBUG     "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wextra -Wuninitialized -Wformat -Wformat-security")
 set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,-z,noexecstack -Wl,-z,relro -Wl,-z,now")
 set(CMAKE_EXE_LINKER_FLAGS    "${CMAKE_EXE_LINKER_FLAGS} -Wl,-z,noexecstack -Wl,-z,relro -Wl,-z,now")
 
@@ -48,13 +53,13 @@ option(WITH_GETTEXT       "Build support for internationalization"              
 option(WITH_LIBCPUID      "Use Libcpuid library"                                              ON)
 option(WITH_LIBPCI        "Use Libpci library"                                                ON)
 option(WITH_LIBGLFW       "Use Libglfw library"                                               ON)
-option(WITH_OPENCL        "Use OpenCL library"                                                ON)
+option(WITH_VULKAN        "Use Vulkan library"                                                ON)
+option(WITH_OPENCL        "Use OpenCL library"                                                OFF) # Disabled due to issues (#238, #258, #264)
 option(WITH_LIBPROCPS     "Use Libprocps library"                                             ON)
 option(WITH_LIBSTATGRAB   "Use Libstatgrab library"                                           ON)
 option(WITH_DMIDECODE     "Built-in Dmidecode"                                                ON)
 option(WITH_BANDWIDTH     "Built-in Bandwidth"                                                ON)
 option(FORCE_LIBSTATGRAB  "Force use of Libstatgrab instead of Libprocps (GNU/Linux system)"  OFF)
-option(APPIMAGE           "Enable workarounds for AppImage"                                   OFF)
 
 # Colours
 string(ASCII 27 Esc)
@@ -121,6 +126,7 @@ enable_testing()
 find_package(PkgConfig REQUIRED)
 find_package(Threads REQUIRED)
 find_package(Backtrace REQUIRED)
+find_package(Filesystem REQUIRED)
 if(WITH_GETTEXT)
 	find_package(Gettext)
 	if(${CMAKE_VERSION} VERSION_GREATER "3.1")
